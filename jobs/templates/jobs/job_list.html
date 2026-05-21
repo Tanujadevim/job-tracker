@@ -1,0 +1,49 @@
+{% extends 'jobs/base.html' %}
+{% block content %}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h4 class="fw-bold">My Applications</h4>
+    <a href="{% url 'job_add' %}" class="btn btn-dark">+ Add Job</a>
+</div>
+
+{% if jobs %}
+<div class="row">
+    {% for job in jobs %}
+    <div class="col-md-6 mb-3">
+        <div class="card shadow-sm h-100">
+            <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    <h5 class="card-title fw-bold">{{ job.title }}</h5>
+                    {% if job.status == 'applied' %}
+                        <span class="badge bg-primary">Applied</span>
+                    {% elif job.status == 'interview' %}
+                        <span class="badge bg-warning text-dark">Interview</span>
+                    {% elif job.status == 'offer' %}
+                        <span class="badge bg-success">Offer</span>
+                    {% elif job.status == 'rejected' %}
+                        <span class="badge bg-danger">Rejected</span>
+                    {% endif %}
+                </div>
+                <p class="text-muted mb-1">🏢 {{ job.company }}</p>
+                <p class="text-muted mb-2">📅 {{ job.date_applied }}</p>
+                {% if job.notes %}
+                <p class="small text-secondary">{{ job.notes }}</p>
+                {% endif %}
+                <div class="mt-2">
+                    <a href="{% url 'job_edit' job.pk %}" class="btn btn-sm btn-outline-secondary me-2">Edit</a>
+                    <a href="{% url 'job_delete' job.pk %}" class="btn btn-sm btn-outline-danger">Delete</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% else %}
+<div class="text-center mt-5">
+    <h5 class="text-muted">No applications yet.</h5>
+    <p class="text-muted">Click "Add Job" to log your first application.</p>
+    <a href="{% url 'job_add' %}" class="btn btn-dark mt-2">+ Add Job</a>
+</div>
+{% endif %}
+
+{% endblock %}
