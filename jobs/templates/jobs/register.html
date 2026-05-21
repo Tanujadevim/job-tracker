@@ -7,7 +7,8 @@
       <div class="card-body p-5">
         <h4 class="fw-bold mb-1 text-center">Create Account</h4>
         <p class="text-muted text-center mb-4" style="font-size:13px">Use a unique username like priya_23 or deepu_hyd</p>
-        <form method="POST">
+<p class="text-muted text-center mb-4" style="font-size:12px">Password can be anything — choose something you'll remember</p>
+         <form method="POST">
           {% csrf_token %}
           {% for field in form %}
             <div class="mb-3">
